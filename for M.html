@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Love Forever</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    /* ===== HALAMAN DASAR ===== */
+    body {
+      background: #000;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    /* ===== LINK BULAT DI KANAN (BOLEH DIHAPUS) ===== */
+    .quick-link {
+      position: fixed;
+      right: 10px;
+      width: 35px;
+      height: 35px;
+      z-index: 999;
+      background: #696969;
+      border-radius: 50%;
+      padding: 1px;
+      text-align: center;
+      color: #ddd;
+      text-decoration: none;
+      line-height: 35px;
+      font-size: 13px;
+      user-select: none;
+    }
+    .quick-link:nth-of-type(1) { top: 10%; }
+    .quick-link:nth-of-type(2) { top: 4%; }
+    .quick-link:nth-of-type(3) { top: 16%; }
+    .quick-link:nth-of-type(4) { top: 22%; }
+
+    /* ===== POSISI LOVE ===== */
+    #ui .love {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -225px 0 0 -225px;
+      --i: 1;
+    }
+
+    /* ===== TEKS LOVE ===== */
+    #ui .love_word {
+      color: #ea80b0;
+      font-size: 1.4rem;
+      transform: translateY(-100%) rotateZ(-30deg);
+      text-shadow: 0 0 10px #fff;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    /* ===== GERAK HORIZONTAL ===== */
+    #ui .love_horizontal {
+      animation: horizontal 10000ms infinite alternate ease-in-out;
+      animation-delay: calc(var(--i) * -300ms);
+    }
+
+    /* ===== GERAK VERTIKAL (INI BIKIN BENTUK LOVE) ===== */
+    #ui .love_vertical {
+      animation: vertical 20000ms infinite linear;
+      animation-delay: calc(var(--i) * -300ms);
+    }
+
+    /* ===== ANIMASI SAMPING ===== */
+    @keyframes horizontal {
+      from { transform: translateX(0px); }
+      to   { transform: translateX(450px); }
+    }
+
+    /* ===== ANIMASI ATAS–BAWAH (BENTUK HATI) ===== */
+    @keyframes vertical {
+      0%   { transform: translateY(180px); }
+      10%  { transform: translateY(45px); }
+      15%  { transform: translateY(4.5px); }
+      18%  { transform: translateY(0px); }
+      20%  { transform: translateY(4.5px); }
+      22%  { transform: translateY(34.6px); }
+      24%  { transform: translateY(64.2px); }
+      25%  { transform: translateY(112.5px); }
+      26%  { transform: translateY(64.2px); }
+      28%  { transform: translateY(34.6px); }
+      30%  { transform: translateY(4.5px); }
+      32%  { transform: translateY(0px); }
+      35%  { transform: translateY(4.5px); }
+      40%  { transform: translateY(45px); }
+      50%  { transform: translateY(180px); }
+      71%  { transform: translateY(428.5px); }
+      72.5%{ transform: translateY(441.1px); }
+      75%  { transform: translateY(450px); }
+      77.5%{ transform: translateY(441.1px); }
+      79%  { transform: translateY(428.5px); }
+      100% { transform: translateY(180px); }
+    }
+  </style>
+
+#musicBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  padding: 10px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #ea80b0;
+  color: white;
+}
+
+</head>
+
+<body>
+<img src="bg.png" class="center-img">
+
+  <audio id="bgm" src="music.mp3" autoplay loop muted></audio>
+  <button id="musicBtn">🔊 ON</button>
+  <script>
+  const music = document.getElementById("bgm");
+  const btn = document.getElementById("musicBtn");
+
+  let isPlaying = false;
+
+  // klik layar pertama buat nyalain musik
+  document.addEventListener("click", () => {
+    if (!isPlaying) {
+      music.muted = false;
+      music.play();
+      isPlaying = true;
+      btn.textContent = "🔊 ON";
+    }
+  });
+
+  // tombol ON / OFF
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); // biar gak bentrok sama klik layar
+
+    if (music.paused) {
+      music.play();
+      btn.textContent = "🔊 ON";
+    } else {
+      music.pause();
+      btn.textContent = "🔇 OFF";
+    }
+  });
+</script>
+
+
+
+  <div id="ui"></div>
+
+</body>
+
+  <script>
+  document.addEventListener("click", () => {
+    const music = document.getElementById("bgm");
+    music.muted = false;
+    music.play();
+  });
+</script>
+
+  <a class="quick-link">+</a>
+  <a class="quick-link">☆</a>
+  <a class="quick-link">≡</a>
+  <a class="quick-link">♥</a>
+
+  <div id="ui"></div>
+
+  <script>
+    const N = 100;
+    const ui = document.getElementById("ui");
+
+    for (let i = 1; i <= N; i++) {
+      const love = document.createElement("div");
+      love.className = "love";
+      love.style.setProperty("--i", i);
+
+      const h = document.createElement("div");
+      h.className = "love_horizontal";
+
+      const v = document.createElement("div");
+      v.className = "love_vertical";
+
+      const word = document.createElement("div");
+      word.className = "love_word";
+      word.textContent = "hepi tuyutuyuu mirjakuu";
+
+      v.appendChild(word);
+      h.appendChild(v);
+      love.appendChild(h);
+      ui.appendChild(love);
+    }
+  </script>
+
+</body>
+</html>
+
+ 
